@@ -3,96 +3,96 @@ import matplotlib.pyplot as plt
 from ucimlrepo import fetch_ucirepo
 
 # %%
-# fetch dataset
+# Fetch dataset
 raisin = fetch_ucirepo(id=850)
 # data (as pandas dataframes)
 X = raisin.data.features
 y = raisin.data.targets
 
-# Opis klas
+# Class description
 print(y['Class'].value_counts())
 
-# Opis cech
+# Description of features
 X.describe()
 
 # %%
-# Wartości minimalne
+# Minimum values
 min_values = X.min()
 
-# Wartości maksymalne
+# Maximum values
 max_values = X.max()
 
-# Średnia
+# Mean
 mean_values = X.mean()
 
-# Mediana
+# Median
 median_values = X.median()
 
-# Drugi (dolny) kwartyl
+# Second (lower) quartile
 q2 = X.quantile(0.25)
 
-# Trzeci (górny) kwartyl
+# Third (upper) quartile
 q3 = X.quantile(0.75)
 
-# Odchylenie standardowe
+# Standard deviation
 std_deviation = X.std()
 
-# Liczność próbek w zbiorze
+# The number of samples in the set
 sample_count = len(X)
 
-# Występowanie danych niepełnych
+# Occurrence of incomplete data
 missing_data_count = X.isnull().sum()
 
 # %%
-# Liczność próbek dla poszczególnych klas (jeśli dane są sklasyfikowane)
+# Sample counts for each class (if data is classified)
 for column in X.columns:
     class_counts = X[column].value_counts()
     print("\nLiczność próbek dla poszczególnych klas:")
     print(class_counts)
 
 # %%
-# Wyświetlenie wyników
-print("Wartości minimalne:")
+# Display the results
+print("Minimum values:")
 print(min_values)
-print("\nWartości maksymalne:")
+print("\nMaximum values:")
 print(max_values)
-print("\nŚrednia:")
+print("\nMean:")
 print(mean_values)
-print("\nMediana:")
+print("\nMedian:")
 print(median_values)
-print("\nDrugi (dolny) kwartyl:")
+print("\nSecond (lower) quartile:")
 print(q2)
-print("\nTrzeci (górny) kwartyl:")
+print("\nThird (upper) quartile:")
 print(q3)
-print("\nOdchylenie standardowe:")
+print("\nStandard deviation:")
 print(std_deviation)
-print("\nLiczność próbek w zbiorze:", sample_count)
-print("\nWystępowanie danych niepełnych:")
+print("\nThe number of samples in the set:", sample_count)
+print("\nOccurrence of incomplete data:")
 print(missing_data_count)
 
 # %%
-# Wykresy dla trzech wybranych zmiennych
+# Graphs for three selected variables
 selected_columns = X.columns
 
 for column in selected_columns:
-    # Wykres pudełkowy
+    # Boxplot
     plt.figure(figsize=(8, 6))
     X.boxplot(column=column)
-    plt.title(f'Wykres pudełkowy dla {column}')
+    plt.title(f'Boxplot for {column}')
     plt.show()
 
-    # Wykres liniowy
+    # Line graph
     plt.figure(figsize=(8, 6))
     plt.plot(X.index, X[column])
-    plt.title(f'Wykres liniowy dla {column}')
-    plt.xlabel('Indeks próbki')
-    plt.ylabel('Wartość')
+    plt.title(f'Line graph for {column}')
+    plt.xlabel('Sample index')
+    plt.ylabel('Value')
     plt.show()
 
     # Histogram
     plt.figure(figsize=(8, 6))
     X[column].plot(kind='hist', bins=20)
-    plt.title(f'Histogram dla {column}')
-    plt.xlabel('Wartość')
-    plt.ylabel('Częstotliwość')
+    plt.title(f'Histogram for {column}')
+    plt.xlabel('Value')
+    plt.ylabel('Frequency')
     plt.show()
